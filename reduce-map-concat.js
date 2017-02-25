@@ -41,3 +41,81 @@ Object
   .concat(Object.keys(obj2))
   .reduce((acc, key) => acc.indexOf(key) >= 0 ? acc : acc.concat(key), [])
   .reduce((acc, key) => Object.assign(acc, buildObj(key, msum(key))), {})
+
+
+// POSSIBLE JS PROBLEMS
+// 1. Combine two objects
+  const obj1 = { kale: null, apple: 5, orange: null, garlic: 130,
+                  banana: 8, avocado: 44 }
+  const obj2 = { kale: null, apple: null, orange: 3, garlic: 4,
+                  banana: 2, pineapple: 1 }
+// => { kale: 0, apple: 5, orange: 3, garlic: 134, banana: 10, avocado: 44, pineapple: 1 }
+//First I find the keys of both objects and concatenate them into one array
+const combinedObjs = Object.keys(obj1).concat(Object.keys(obj2))
+// => ["kale", "apple", "orange", "garlic", "banana", "avocado", "kale", "apple", "orange", "garlic", "banana", "pineapple"]
+
+//Second, I reduce the array of keys and eliminate duplicate keys (need to follow up on how this works)
+const filteredProduce = combinedObjs.reduce((acc,key) => acc.indexOf(key) >= 0 ? acc : acc.concat(key), [])
+// => ["kale", "apple", "orange", "garlic", "banana", "avocado", "pineapple"]
+
+
+//Third, I map through filteredProduce to sum the values of the keys and default to zero if there are no values
+const produceVals =
+ filteredProduce
+  .map(v => (obj1[v] || 0) + (obj2[v] || 0) )// => [0, 5, 3, 134, 10, 44, 1]
+
+//Fourth, I create an empty object, and I loop through the keys and values to assign them to their respective...things
+const result = {}
+for (let i=0; i<filteredProduce.length; i++){
+  result[filteredProduce[i]] = produceVals[i]
+}
+
+result // =>{"apple": 5, "avocado": 44, "banana": 10, "garlic": 134, "kale": 0, "orange": 3, "pineapple": 1}
+
+
+
+// 2. Reduce two arrays into one object
+  const amount = [12, 5, 8, 130, 8, 44]
+  const foodNames = ['kale', 'apple', 'orange', 'garlic', 'banana', 'avocado' ]
+// => { kale: 12, apple: 5, orange: 8, garlic: 130, banana: 8, avocado: 44 }
+
+//1: Create an empty object
+const singleObj = {}
+
+//2: loop through the keys (foodnames) and assign a value(amount) to each key
+for (let i=0;i<foodNames.length;i++){
+  singleObj[foodNames[i]] = amount[i]
+}
+singleObj
+
+// 3. Add value to a particular object key
+const obj = { kale: 12, apple: 5, orange: 8, garlic: 130, banana: 8, avocado: 44 };
+//arguments:  obj, 'apple', 4
+// => { kale: 12, apple: 9, orange: 8, garlic: 130, banana: 8, avocado: 44 }
+
+const addObj =
+ obj['apple'] + (obj['apple'] = 4)
+
+addObj
+// 4. Count the number of occurances of values in an array, returns an object, using Reduce (can't use obj.values())
+//	const vehs = [car, car, truck, bike, boat, truck, car]
+	// => { car: 3, truck: 2, bike: 1, boat: 1 }
+
+// 5. Use filter to return elements of an array that fit a provided argument.
+//	const fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
+
+// findFruits('ap') => ['apple', 'grapes']
+// findFruits('o') => ['mango', 'orange']
+
+
+// 6. Use splice to return given elements in an array and/or add an additional element into the array (still using splice only). USE THE DOCS.
+
+//	const countries = ['spain', 'china', 'mexico', 'ghana'];
+
+// Return both the final array, and the element (s) that were removed.
+
+// => const final = ['spain', 'mexico', 'ghana']
+// => const removed = ['china']
+
+// => const final = ['spain', 'china', 'mexico', 'sweden', 'ghana']
+// => const removed = []
