@@ -97,15 +97,39 @@ const addObj =
  obj['apple'] + (obj['apple'] = 4)
 
 addObj
+
 // 4. Count the number of occurances of values in an array, returns an object, using Reduce (can't use obj.values())
 //	const vehs = [car, car, truck, bike, boat, truck, car]
 	// => { car: 3, truck: 2, bike: 1, boat: 1 }
 
-// 5. Use filter to return elements of an array that fit a provided argument.
-//	const fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
+  const vehs = ["car","car","truck", "bike", "boat", "truck", "car"]
+	// => { car: 3, truck: 2, bike: 1, boat: 1 }
+vehs.reduce((count, current) => { // count = accumulator, current = current item
+  if(count[current] !== 0){ // if the value of the current item is not 0
+    count[current]++
+    return count
+  } else {
+    count[current] = 1
+    return count
+  }
+},{})  // => {"bike": 1, "boat": 1, "car": 3, "truck": 2}
 
+
+// 5. Use filter to return elements of an array that fit a provided argument.
+	const fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
 // findFruits('ap') => ['apple', 'grapes']
 // findFruits('o') => ['mango', 'orange']
+
+const findFruits = (letters) => {
+  const result = []
+  fruits.filter((fruit) => {
+    result.push(fruit.includes(letters))
+    }
+   )
+   return result//use index to try to loop and get vals?
+  }
+
+findFruits('an') // =>[false, true, false, true, true]
 
 
 // 6. Use splice to return given elements in an array and/or add an additional element into the array (still using splice only). USE THE DOCS.
