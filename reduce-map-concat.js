@@ -70,8 +70,22 @@ const result = {}
 for (let i=0; i<filteredProduce.length; i++){
   result[filteredProduce[i]] = produceVals[i]
 }
+ // =>{"apple": 5, "avocado": 44, "banana": 10, "garlic": 134, "kale": 0, "orange": 3, "pineapple": 1}
 
-result // =>{"apple": 5, "avocado": 44, "banana": 10, "garlic": 134, "kale": 0, "orange": 3, "pineapple": 1}
+//EASIER WAY!!
+const obj1 = { kale: null, apple: 5, orange: null, garlic: 130, banana: 8, avocado: 44 }
+const obj2 = { kale: null, apple: null, orange: 3, garlic: 4, banana: 2, pineapple: 1 }
+
+let combined = new Object()
+
+for(let key1 in obj1){
+  combined[key1] = (combined[key1] || 0) + obj1[key1]
+}
+
+for(let key2 in obj2){
+  combined[key2] = (combined[key2] || 0) + obj2[key2]
+}
+// =>{"apple": 5, "avocado": 44, "banana": 10, "garlic": 134, "kale": 0, "orange": 3, "pineapple": 1}
 
 
 
@@ -80,24 +94,22 @@ result // =>{"apple": 5, "avocado": 44, "banana": 10, "garlic": 134, "kale": 0, 
   const foodNames = ['kale', 'apple', 'orange', 'garlic', 'banana', 'avocado' ]
 // => { kale: 12, apple: 5, orange: 8, garlic: 130, banana: 8, avocado: 44 }
 
-//1: Create an empty object
-const singleObj = {}
+// Create an empty object
+const singleObj = new Object()
 
-//2: loop through the keys (foodnames) and assign a value(amount) to each key
+//loop through the keys (foodnames) and assign a value(amount) to each key
 for (let i=0;i<foodNames.length;i++){
   singleObj[foodNames[i]] = amount[i]
 }
-singleObj
 
 // 3. Add value to a particular object key
 const obj = { kale: 12, apple: 5, orange: 8, garlic: 130, banana: 8, avocado: 44 };
 //arguments:  obj, 'apple', 4
 // => { kale: 12, apple: 9, orange: 8, garlic: 130, banana: 8, avocado: 44 }
 
-const addObj =
- obj['apple'] + (obj['apple'] = 4)
-
-addObj
+const addToCart = (ob, k, v) => {
+  ob[k] = ob[k] + v
+}
 
 // 4. Count the number of occurances of values in an array, returns an object, using Reduce (can't use obj.values())
 //	const vehs = [car, car, truck, bike, boat, truck, car]
@@ -115,6 +127,11 @@ vehs.reduce((count, current) => { // count = accumulator, current = current item
   }
 },{})  // => {"bike": 1, "boat": 1, "car": 3, "truck": 2}
 
+//REFACTORED!
+vehs.reduce((acc, item) => {
+  acc[item] = (acc[item] || 0) + 1
+  return acc
+},{})
 
 // 5. Use filter to return elements of an array that fit a provided argument.
 	const fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
@@ -134,6 +151,10 @@ const findFruits = (letters) => {
 
 findFruits('an') // =>['apple','mango', 'orange']
 
+//REFACTORED!!!
+const findFruits = (letters) => {
+  return fruits.filter((fruit) => fruit.includes(leters))
+}
 
 //6. Use splice to return given elements in an array and/or add an additional element into the array (still using splice only). USE THE DOCS.
 
