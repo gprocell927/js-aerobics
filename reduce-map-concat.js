@@ -56,6 +56,7 @@ const combinedObjs = Object.keys(obj1).concat(Object.keys(obj2))
 
 //Second, I reduce the array of keys and eliminate duplicate keys (need to follow up on how this works)
 const filteredProduce = combinedObjs.reduce((acc,key) => acc.indexOf(key) >= 0 ? acc : acc.concat(key), [])
+
 // => ["kale", "apple", "orange", "garlic", "banana", "avocado", "pineapple"]
 
 
@@ -123,23 +124,32 @@ vehs.reduce((count, current) => { // count = accumulator, current = current item
 const findFruits = (letters) => {
   const result = []
   fruits.filter((fruit) => {
-    result.push(fruit.includes(letters))
+    if (fruit.includes(letters)){
+      result.push(fruit)
     }
-   )
-   return result//use index to try to loop and get vals?
+  }
+  )
+   return result
   }
 
-findFruits('an') // =>[false, true, false, true, true]
+findFruits('an') // =>['apple','mango', 'orange']
 
 
-// 6. Use splice to return given elements in an array and/or add an additional element into the array (still using splice only). USE THE DOCS.
+//6. Use splice to return given elements in an array and/or add an additional element into the array (still using splice only). USE THE DOCS.
 
-//	const countries = ['spain', 'china', 'mexico', 'ghana'];
+	const countries = ['spain', 'china', 'mexico', 'ghana'];
+
+  let deleted
+
+  let final
+
+    deleted = countries.splice(1,1) // =>['china']
+    final = countries // => const final = ['spain', 'mexico', 'ghana']
 
 // Return both the final array, and the element (s) that were removed.
 
 // => const final = ['spain', 'mexico', 'ghana']
 // => const removed = ['china']
 
-// => const final = ['spain', 'china', 'mexico', 'sweden', 'ghana']
+deleted = countries.splice(3,0,'sweden')// => const final = ['spain', 'china', 'mexico', 'sweden', 'ghana']
 // => const removed = []
